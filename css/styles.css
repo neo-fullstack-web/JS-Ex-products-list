@@ -1,0 +1,23 @@
+.table-img {
+    width: 70px;
+    object-fit: cover;
+}
+
+
+.query-class {
+    padding: .5rem 1rem;
+    border: 2px solid salmon;
+    margin: .5rem 0;
+    width: 300px;
+    cursor: pointer;
+}
+
+.query-class:hover {
+    background-color: bisque;
+}
+
+.query-class.active {
+    background-color: salmon;
+    border: 2px solid red;
+    color: white;
+}
