@@ -1,4 +1,4 @@
-export const Products = [
+const Products = [
     {
         name: 'PS5',
         description: 'La consola más potente de Sony al día de la fecha',
@@ -57,8 +57,7 @@ export const Products = [
 ];
 
 // export const Saludo = `Hola desde modulo productos`;
-
-export const EjemploKeys = {
+ const EjemploKeys = {
     criticalmENTE: {
         total: 560,
         status: `compliance`,
