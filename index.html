@@ -9,10 +9,91 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <h1>Productos Admin</h1>
+    
 
-    <div class="container-lg">
-        <table class="table table-dark table-striped">
+    <main class="container-xxl">
+      <h1>Productos Admin</h1>
+      <div class="row">
+        <div class="col-6">
+          <h2>Carga de productos</h2>
+
+          <form class="row mb-3 needs-validation" novalidate id="addProductForm">
+
+            <div class="col-12 col-md-6 mb-3">
+              <label for="name" class="form-label">Nombre producto</label>
+              <input name="name" type="text" class="form-control" id="name" required minlength="3" maxlength="40">
+              <div class="valid-feedback">
+                Parece correcto
+              </div>
+              <div class="invalid-feedback">
+                El nombre del producto es requerido
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+              <label for="price" class="form-label">Precio Producto</label>
+              <div class="input-group">
+                <span class="input-group-text bg-primary text-light" id="basic-addon1">$</span>
+                <input type="number" name="price" class="form-control" id="price" required min="0" max="50000000">
+              </div>
+              
+              <div class="valid-feedback">
+                Parece correcto
+              </div>
+              <div class="invalid-feedback">
+                El precio debe ser mayor a 0
+              </div>
+            </div>
+
+            <div class="col-12 mb-3">
+              <label for="description">Descripción del producto</label>
+              <textarea name="description" class="form-control" id="description" rows="4">
+
+
+              </textarea>
+            </div>
+
+            
+
+            <div class="col-12 mb-3">
+              <label for="image" class="form-label">URL del producto</label>
+              <input name="image" type="url" class="form-control" id="image" required minlength="6" maxlength="150" >
+              <div class="valid-feedback">
+                Parece correcto
+              </div>
+              <div class="invalid-feedback">
+                La URL de la imagen es requerida
+              </div>
+            </div>
+
+
+
+            <div class="col-6">
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="stock" id="stock" checked>
+                <label class="form-check-label" for="stock">
+                  Stock
+                </label>
+              </div>
+  
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="jostick" id="jostick">
+                <label class="form-check-label" for="jostick">
+                  Jostick
+                </label>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit">Agregar producto</button>
+            </div>
+
+          </form>
+
+        </div>
+        <div class="col-6">
+
+          <table class="table table-dark table-striped">
             <thead>
               <tr>
                 <th scope="col">Imagen</th>
@@ -23,17 +104,15 @@
               </tr>
             </thead>
             <tbody id="table-body">
-              <!-- <tr>
-                <td>imagen</td>
-                <td>Consola</td>
-                <td>Alguna descripcion</td>
-                <td>$ 32032</td>
-                <td>icono</td>
-              </tr> -->
+              
               
             </tbody>
           </table>
-    </div>
+
+        </div>
+      </div>
+        
+    </main>
     
 
 
@@ -42,7 +121,31 @@
 
     <!-- <script src="/js/objects.js" type="module"></script> -->
     <script src="/js/product-list.js" type="module"></script>
-    <script src="/js/products.js" type="module"></script>
-    <script src="/js/dom-elements-section.js"></script>
+    <!-- <script src="/js/products.js"></script> -->
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+          .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+              if (!form.checkValidity()) {
+                console.log("no valido")
+                event.preventDefault()
+                event.stopPropagation()
+              }
+
+              form.classList.add('was-validated')
+            }, false)
+          })
+      })()
+
+
+    </script>
 </body>
 </html>
