@@ -1,5 +1,5 @@
 // Voy a mirar si en el local storage hay productos guardados. Si hay los voy a leer y los voy asignar a mi variable Productos
-const Products =  JSON.parse(localStorage.getItem('products'))      ;
+const Products =  JSON.parse(localStorage.getItem('products')) || [];
 const tableBodyHTML = document.getElementById('table-body');
 const addProductForm = document.querySelector('#addProductForm');
 
@@ -8,7 +8,7 @@ console.log(tableBodyHTML)
 
 function renderProducts() {
     tableBodyHTML.innerHTML = '';
-    Products.forEach(elem => {
+    Products.forEach((elem, index) => {
         tableBodyHTML.innerHTML += `<tr>
                                         <td>
                                             <img class="table-img" src=${elem.image} />
@@ -16,7 +16,21 @@ function renderProducts() {
                                         <td>${elem.name}</td>
                                         <td>${elem.description}</td>
                                         <td>$ ${elem.price}</td>
-                                        <td>icono</td>
+                                        <td class="">
+                                            ${elem.stock ? `<i class="fa-solid fa-box me-2"></i>` : `` }
+                                            ${elem.jostick ? `<i class="fa-solid fa-gamepad me-2"></i>` : ``}
+                                            ${elem.favorite ? `<i class="fa-solid fa-star"></i>` : `<i class="fa-regular fa-star"></i>`}
+                                        </td>
+                                        <td class="">
+                                            <div class="d-flex">
+                                                <button class="btn btn-danger p-1 me-2" onclick="deleteProduct(${index})">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                                <button class="btn btn-success p-1" onclick="editProduct(${index})">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                            </div>
+                                        </td>
                                     </tr>`
     });
 }
@@ -50,19 +64,26 @@ addProductForm.addEventListener('submit', (evt) => {
 
     newProduct.price = parseInt(newProduct.price)
 
+    console.log(newProduct)
     
-    if(newProduct.jostick) newProduct.jostick = true
-    if(newProduct.stock) newProduct.stock = true;
+    newProduct.jostick = !!newProduct.jostick;
+    newProduct.stock = !!newProduct.stock;
 
     //Añadí un nuevo producto a mi array de productos
-    Products.push(newProduct)
+    if(addProductForm.dataset.edit) {
+        Products[addProductForm.dataset.edit] = newProduct;
+    } else {
+        Products.push(newProduct)
+    }
+
+    delete addProductForm.dataset.edit;
 
 
     console.log(Products)
     //Guardamos el array de productos modificado
     localStorage.setItem('products', JSON.stringify(Products))
 
-
+    localStorage.removeItem('saludo')
 
     // Pintamos nuevamente la tabla para que reflejen los cambios
     renderProducts();
@@ -78,6 +99,22 @@ addProductForm.addEventListener('submit', (evt) => {
 
 })
 
+function deleteProduct(idx) {
+    console.log(`delete`)
+    Products.splice(idx, 1);
+    renderProducts();
+}
 
-
+function editProduct(idx) {
+    const prod = Products[idx]
+    Object.keys(prod).forEach(key => {
+        // if(`checked` in addProductForm.elements[key]) {
+            console.log(key, !!prod[key])
+            addProductForm.elements[key].checked = !!prod[key]
+        // }
+       
+        addProductForm.elements[key].value = Products[idx][key]
+    })
+    addProductForm.setAttribute('data-edit', idx);
+}
 
