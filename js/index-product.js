@@ -3,7 +3,7 @@ const notebookContainer = document.querySelector('#notebook')
 // const monitorContainer = document.querySelector('#monitor')
 console.log(products)
 function renderProducts() {
-    const idx = obtenerQueryParamId();
+    
     notebookContainer.innerHTML = '';
     products.forEach((prod, index) => {
         notebookContainer.innerHTML += `
@@ -26,8 +26,6 @@ function renderProducts() {
         })
 }
 
-function obtenerQueryParamId() {
-    console.log(window.location.pathname)
-}
+
 
 renderProducts()
