@@ -1,11 +1,19 @@
+// Obtengo mi array de productos del localstorage
 const products = JSON.parse(localStorage.getItem('products')) || [];
 
+// Obtengo el elemento donde voy a renderizar mi producto
 const sectionDetail = document.getElementById('product-detail')
 
+// Renderizo producto en la función definida
 function renderProductDetail( ) {
+    // Debo saber que producto voy a renderizar por eso analizo la URL
     const idx = obtenerQueryParamId();
+    //Obtengo el producto
     const prod = products[idx];
+    // Datos a agregar si así lo quisiera
     const precioFinanciado = Math.round((prod.price * 1.50) / 12)
+
+    //Inserto el HTML con la estructura definida previamente pero renderizando dinámicamente ciertos contedidos de algunos elementos
     sectionDetail.innerHTML = `
     <h1 class="lead-1 text-primary border-bottom border-warning">${prod.name}</h1>
     <div class="row">
@@ -23,13 +31,16 @@ function renderProductDetail( ) {
     </div>`
 }
 function obtenerQueryParamId() {
-    // console.log(window.location.search);
+   // Obtengo la parte de busqueda
     const params = window.location.search;
-    // console.log(params.split('=')[1].split('&')[0]);
 
+    // Analizo esa parte obtenida y la tranformo a un objeto
     const paramsUrl = new URLSearchParams(params)   
     const paramsEntries = Object.fromEntries(paramsUrl)
+
+    // Obtengo el id especificamente
     const index = paramsEntries.id
+    // Lo retorno para que se almacene como resultado de mi funcion en la variable donde lo llamo
     return index
     // const id = params.split
 }
