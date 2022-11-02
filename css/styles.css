@@ -24,3 +24,7 @@
 .text-yellow {
     color: yellow;
 }
+
+.card-image {
+    height: 200px;
+}
